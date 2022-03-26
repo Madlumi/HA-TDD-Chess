@@ -54,4 +54,32 @@ public class MoveTest {
 
     Assertions.assertEquals(s[0],s[1]);
   }
+
+  @Test
+  public void TestStartPawnMoveAllowed() {
+    final Chessboard chessboard = Chessboard.startingBoard();
+    int[][] ActualMS= chessboard.getPiece(new Coordinates(3, 1)).moveSpace(chessboard);
+    chessboard.getPiece(new Coordinates(3, 1)).canMove(chessboard,new Coordinates(3,2));
+
+    int[][] ExpctedMs = new int[8][8];
+    for (int y = 0; y < 8; y++){
+      for (int x = 0; x < 8; x++){
+        ExpctedMs[x][y]=0;
+      }
+    }
+    ExpctedMs[3][2]=1;
+    ExpctedMs[3][3]=1;
+    for (int y = 0; y < 8; y++){
+      for (int x = 0; x < 8; x++) {
+        if(ExpctedMs[x][y]==0){
+          Assertions.assertEquals(false, chessboard.getPiece(new Coordinates(3, 1)).canMove(chessboard,new Coordinates(x,y)));
+        }else{
+          Assertions.assertEquals(true, chessboard.getPiece(new Coordinates(3, 1)).canMove(chessboard,new Coordinates(x,y)));
+        }
+
+      }
+    }
+
+
+  }
 }
