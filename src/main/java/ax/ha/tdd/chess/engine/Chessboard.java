@@ -35,6 +35,37 @@ public class Chessboard implements Iterable<ChessPiece[]> {
         board[chessPiece.getLocation().getY()][chessPiece.getLocation().getX()] = chessPiece;
     }
 
+    public boolean MovePiece(final ChessPiece chessPiece, final Coordinates c) {
+        board[chessPiece.getLocation().getY()][chessPiece.getLocation().getX()] = null;
+        MoveTypes mt = chessPiece.moveSpace(this)[c.getX()][c.getY()];
+        switch (mt){
+            case MOVE:
+                board[c.getY()][c.getX()] = chessPiece;
+                break;
+            case TAKE:
+                board[c.getY()][c.getX()] = chessPiece;
+                break;
+            case ENPA:
+                board[c.getY()][c.getX()] = chessPiece;
+                switch (chessPiece.getPlayer()){
+                    case WHITE:
+                        board[c.getY()-1][c.getX()] = null;
+                        break;
+
+                    case BLACK:
+                        board[c.getY()+1][c.getX()] = null;
+                        break;
+                }
+                break;
+            case CAST:
+                break;
+            case ILLE:
+                return false;
+        }
+        chessPiece.setLocation(c);
+        chessPiece.moved();
+        return true;
+    }
     /**
      * Helper method to initialize chessboard with {@link ChessPieceStub}.
      * Basically mirrors all added pieces for both players.

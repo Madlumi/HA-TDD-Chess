@@ -2,6 +2,7 @@ package ax.ha.tdd.chess.engine.pieces;
 
 import ax.ha.tdd.chess.engine.Chessboard;
 import ax.ha.tdd.chess.engine.Coordinates;
+import ax.ha.tdd.chess.engine.MoveTypes;
 import ax.ha.tdd.chess.engine.Player;
 
 /**
@@ -33,7 +34,12 @@ public class ChessPieceStub extends ChessPiece {
     }
 
     @Override
-    public int[][] moveSpace(Chessboard chessboard) {
-        return new int[8][8];
+    public MoveTypes[][] moveSpace(Chessboard chessboard) {
+        return new MoveTypes[8][8];
+    }
+
+    @Override
+    public void moved() {
+
     }
 }

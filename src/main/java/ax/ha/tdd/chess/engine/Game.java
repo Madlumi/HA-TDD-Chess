@@ -29,5 +29,13 @@ public class Game {
         //TODO this should trigger your move logic.
         isNewGame = false;
         System.out.println("Player tried to perform move: " + move);
+
+        //TODO validate input
+        //TODO check if piece is valid
+        //TODO check if valid move
+            //TODO board.move
+            //TODO setMSg
+            //TODO player switch
+
     }
 }

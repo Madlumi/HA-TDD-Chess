@@ -2,6 +2,7 @@ package ax.ha.tdd.chess.engine.pieces;
 
 import ax.ha.tdd.chess.engine.Chessboard;
 import ax.ha.tdd.chess.engine.Coordinates;
+import ax.ha.tdd.chess.engine.MoveTypes;
 import ax.ha.tdd.chess.engine.Player;
 
 import java.util.Objects;
@@ -35,14 +36,18 @@ public abstract class ChessPiece {
     public Coordinates getLocation() {
         return location;
     }
-
+    public void setLocation(Coordinates c) {
+        location = c;
+    }
     public boolean canMove(final Chessboard chessboard, final Coordinates destination){
-        int[][] moveSpace =moveSpace(chessboard);
-        if(moveSpace[destination.getX()][destination.getY()] > 0){ return true;}
+        MoveTypes[][] moveSpace =moveSpace(chessboard);
+        if(moveSpace[destination.getX()][destination.getY()] != MoveTypes.ILLE){ return true;}
         else{return false;}
     }
 
-    public abstract int[][] moveSpace(final Chessboard chessboard);
+    public abstract MoveTypes[][] moveSpace(final Chessboard chessboard);
+
+    public abstract void moved();
 
     @Override
     public boolean equals(Object o) {
