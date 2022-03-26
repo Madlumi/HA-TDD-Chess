@@ -43,7 +43,13 @@ public abstract class ChessPiece {
      * @param destination destination
      * @return true if piece can move to the destination
      */
-    public abstract boolean canMove(final Chessboard chessboard, final Coordinates destination);
+    public boolean canMove(final Chessboard chessboard, final Coordinates destination){
+        int[][] moveSpace =moveSpace(chessboard);
+        if(moveSpace[destination.getX()][destination.getY()] > 0){ return true;}
+        else{return false;}
+    }
+
+    public abstract int[][] moveSpace(final Chessboard chessboard);
 
     @Override
     public boolean equals(Object o) {
