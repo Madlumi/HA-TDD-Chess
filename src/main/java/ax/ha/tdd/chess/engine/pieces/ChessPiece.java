@@ -19,7 +19,11 @@ public abstract class ChessPiece {
         this.player = player;
         this.location = location;
     }
+    protected int state=2;
 
+    public int getState(){
+        return state;
+    }
     public abstract String getSymbol();
 
     public PieceType getPieceType() { return pieceType; }
@@ -32,17 +36,6 @@ public abstract class ChessPiece {
         return location;
     }
 
-
-    /**
-     * Suggestion of design:
-     * Checks if the chessPiece can move to a certain destination.
-     * I preferred to keep this logic tightly coupled to the pieces instead of the board,
-     * since that makes the separation of logic easier.
-     *
-     * @param chessboard chessboard
-     * @param destination destination
-     * @return true if piece can move to the destination
-     */
     public boolean canMove(final Chessboard chessboard, final Coordinates destination){
         int[][] moveSpace =moveSpace(chessboard);
         if(moveSpace[destination.getX()][destination.getY()] > 0){ return true;}

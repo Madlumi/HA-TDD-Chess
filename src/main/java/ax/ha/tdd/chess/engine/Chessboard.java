@@ -2,6 +2,7 @@ package ax.ha.tdd.chess.engine;
 
 import ax.ha.tdd.chess.engine.pieces.ChessPiece;
 import ax.ha.tdd.chess.engine.pieces.ChessPieceStub;
+import ax.ha.tdd.chess.engine.pieces.Pawn;
 import ax.ha.tdd.chess.engine.pieces.PieceType;
 
 import java.util.Iterator;
@@ -47,8 +48,16 @@ public class Chessboard implements Iterable<ChessPiece[]> {
     private Chessboard withMirroredPiece(final PieceType pieceType,
                                          final List<Integer> xCoordinates, final int yCoordinate) {
         xCoordinates.forEach(xCoordinate -> {
-            addPiece(new ChessPieceStub(pieceType, Player.BLACK, new Coordinates(xCoordinate, yCoordinate)));
-            addPiece(new ChessPieceStub(pieceType, Player.WHITE, new Coordinates(xCoordinate, 7 - yCoordinate)));
+            switch (pieceType){
+                case PAWN:
+                    addPiece(new Pawn(pieceType, Player.BLACK, new Coordinates(xCoordinate, yCoordinate)));
+                    addPiece(new Pawn(pieceType, Player.WHITE, new Coordinates(xCoordinate, 7 - yCoordinate)));
+                    break;
+                default:
+                    addPiece(new ChessPieceStub(pieceType, Player.BLACK, new Coordinates(xCoordinate, yCoordinate)));
+                    addPiece(new ChessPieceStub(pieceType, Player.WHITE, new Coordinates(xCoordinate, 7 - yCoordinate)));
+            }
+
         });
         return this;
     }
