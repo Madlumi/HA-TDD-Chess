@@ -29,21 +29,25 @@ public class Pawn extends ChessPiece {
         moveSpace[x][y]=MoveTypes.ILLE;
       }
     }
+    if(location.getY()+dir<0 || location.getY()+dir>7){
+      return moveSpace;
+    }
+
     //check front slot
     if (chessboard.getPiece(new Coordinates(location.getX(), location.getY()+dir)) == null){
       moveSpace[location.getX()][location.getY()+dir]=MoveTypes.MOVE;
       //check if first move, then allow for one more space
-      if(state==2){if (chessboard.getPiece(new Coordinates(location.getX(), location.getY()+dir*2)) == null){
+      if(state==0){if (chessboard.getPiece(new Coordinates(location.getX(), location.getY()+dir*2)) == null){
           moveSpace[location.getX()][location.getY()+dir*2]=MoveTypes.MOVE;
         }
       }
     }
     //check attack, could do a bunch of loops but not worth the effoert here
-    if (chessboard.getPiece(new Coordinates(location.getX()+1, location.getY()+dir)) != null &&
+    if ((location.getX()<7)&&chessboard.getPiece(new Coordinates(location.getX()+1, location.getY()+dir)) != null &&
             chessboard.getPiece(new Coordinates(location.getX()+1, location.getY()+dir)).getPlayer().getSymbol()!=player.getSymbol()){
       moveSpace[location.getX()+1][location.getY()+dir]=MoveTypes.TAKE;
     }
-    if (chessboard.getPiece(new Coordinates(location.getX()-1, location.getY()+dir)) != null &&
+    if ((location.getX()>0)&&chessboard.getPiece(new Coordinates(location.getX()-1, location.getY()+dir)) != null &&
             chessboard.getPiece(new Coordinates(location.getX()-1, location.getY()+dir)).getPlayer().getSymbol()!=player.getSymbol()){
       moveSpace[location.getX()+1][location.getY()+dir]=MoveTypes.TAKE;
     }
@@ -56,9 +60,9 @@ public class Pawn extends ChessPiece {
       chessboard.moveList.get(chessboard.moveList.size()-1).c[1].getY()==location.getY()){ //make sure that the Y is correct
             //we dont need to check that spot is empty due to how the double step works
             //check if next to the enpassable
-            if(chessboard.moveList.get(chessboard.moveList.size()-1).c[1].getX()- location.getX() == -1){
+            if((location.getX()>0)&&chessboard.moveList.get(chessboard.moveList.size()-1).c[1].getX()- location.getX() == -1){
               moveSpace[location.getX()-1][location.getY()+dir]=MoveTypes.ENPA;
-            }else if(chessboard.moveList.get(chessboard.moveList.size()-1).c[1].getX()- location.getX() == 1){
+            }else if((location.getX()<7)&&chessboard.moveList.get(chessboard.moveList.size()-1).c[1].getX()- location.getX() == 1){
               moveSpace[location.getX()+1][location.getY()+dir]=MoveTypes.ENPA;
             }
 
@@ -69,8 +73,11 @@ public class Pawn extends ChessPiece {
     return moveSpace;
   }
 
+
+
+
   @Override
   public void moved() {
-    if (getState()==2) state--;
+    if (getState()==0) state++;
   }
 }

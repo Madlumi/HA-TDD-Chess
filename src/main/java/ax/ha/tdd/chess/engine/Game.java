@@ -48,6 +48,9 @@ public class Game {
         if(cp == null){
             return;
         }
+        if(cp.getPlayer()!=cPlayer){
+            return;
+        }
         if(!cp.canMove(board, m[1])){
             return;
         }

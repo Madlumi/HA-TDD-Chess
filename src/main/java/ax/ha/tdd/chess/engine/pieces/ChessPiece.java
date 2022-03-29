@@ -20,7 +20,7 @@ public abstract class ChessPiece {
         this.player = player;
         this.location = location;
     }
-    protected int state=2;
+    protected int state=0;
 
     public int getState(){
         return state;
@@ -65,5 +65,67 @@ public abstract class ChessPiece {
     @Override
     public String toString() {
         return getPlayer().name() + " " + getClass().getSimpleName();
+    }
+
+    public void setState(int i) {
+        state = i;
+    }
+
+    public MoveTypes[][] TowerSpace(Chessboard b, MoveTypes[][] moveSpace) {
+        for (int y = 0; y < 8; y++){
+            for (int x = 0; x < 8; x++){
+                moveSpace[x][y]=MoveTypes.ILLE;
+            }
+        }
+        int x = location.getX()+1;
+        while(x<8){
+            if(b.getPiece(new Coordinates(x, location.getY()))==null){
+                moveSpace[x][location.getY()]=MoveTypes.MOVE;
+            }else if(b.getPiece(new Coordinates(x, location.getY())).getPlayer()!=getPlayer()){
+                moveSpace[x][location.getY()]=MoveTypes.TAKE;
+                break;
+            }else{
+                break;
+            }
+            x++;
+        }
+        x = location.getX()-1;
+        while(x>=0){
+            if(b.getPiece(new Coordinates(x, location.getY()))==null){
+                moveSpace[x][location.getY()]=MoveTypes.MOVE;
+            }else if(b.getPiece(new Coordinates(x, location.getY())).getPlayer()!=getPlayer()){
+                moveSpace[x][location.getY()]=MoveTypes.TAKE;
+                break;
+            }else{
+                break;
+            }
+            x--;
+        }
+
+        int y = location.getY()+1;
+        while(y<8){
+            if(b.getPiece(new Coordinates(location.getX(), y))==null){
+                moveSpace[location.getX()][ y]=MoveTypes.MOVE;
+            }else if(b.getPiece(new Coordinates(location.getX(), y)).getPlayer()!=getPlayer()){
+                moveSpace[location.getX()][ y]=MoveTypes.TAKE;
+                break;
+            }else{
+                break;
+            }
+            y++;
+        }
+        y = location.getY()-1;
+        while(y>=0){
+            if(b.getPiece(new Coordinates(location.getX(), y))==null){
+                moveSpace[location.getX()][ y]=MoveTypes.MOVE;
+            }else if(b.getPiece(new Coordinates(location.getX(), y)).getPlayer()!=getPlayer()){
+                moveSpace[location.getX()][ y]=MoveTypes.TAKE;
+                break;
+            }else{
+                break;
+            }
+            y--;
+        }
+        return moveSpace;
     }
 }

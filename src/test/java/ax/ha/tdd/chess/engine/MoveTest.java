@@ -2,6 +2,7 @@ package ax.ha.tdd.chess.engine;
 
 import ax.ha.tdd.chess.engine.pieces.Pawn;
 import ax.ha.tdd.chess.engine.pieces.PieceType;
+import ax.ha.tdd.chess.engine.pieces.Rook;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -73,6 +74,60 @@ public class MoveTest {
     }
     ExpctedMs[3][5]=MoveTypes.MOVE;
     ExpctedMs[3][4]=MoveTypes.MOVE;
+    String[] s=grid2String(ExpctedMs, ActualMS);
+
+    Assertions.assertEquals(s[0],s[1]);
+  }
+  @Test
+  public void TestStartPawnWhiteSide() {
+    final Chessboard chessboard = Chessboard.startingBoard();
+    MoveTypes[][] ExpctedMs = new MoveTypes[8][8];
+    MoveTypes[][] ActualMS= chessboard.getPiece(new Coordinates(0, 6)).moveSpace(chessboard);
+
+    for (int y = 0; y < 8; y++){
+      for (int x = 0; x < 8; x++){
+        ExpctedMs[x][y]=MoveTypes.ILLE;
+      }
+    }
+    ExpctedMs[0][5]=MoveTypes.MOVE;
+    ExpctedMs[0][4]=MoveTypes.MOVE;
+    String[] s=grid2String(ExpctedMs, ActualMS);
+
+    Assertions.assertEquals(s[0],s[1]);
+  }
+  @Test
+  public void TestStartPawnWhiteFarSide() {
+    final Chessboard chessboard = Chessboard.startingBoard();
+    MoveTypes[][] ExpctedMs = new MoveTypes[8][8];
+    MoveTypes[][] ActualMS= chessboard.getPiece(new Coordinates(7, 6)).moveSpace(chessboard);
+
+    for (int y = 0; y < 8; y++){
+      for (int x = 0; x < 8; x++){
+        ExpctedMs[x][y]=MoveTypes.ILLE;
+      }
+    }
+    ExpctedMs[7][5]=MoveTypes.MOVE;
+    ExpctedMs[7][4]=MoveTypes.MOVE;
+    String[] s=grid2String(ExpctedMs, ActualMS);
+
+    Assertions.assertEquals(s[0],s[1]);
+  }
+
+  @Test
+  public void TestStartPawnWhiteTallSide() {
+    final Chessboard chessboard = new Chessboard();
+    MoveTypes[][] ExpctedMs = new MoveTypes[8][8];
+    chessboard.addPiece(new Pawn(PieceType.PAWN, Player.WHITE, new Coordinates(7,0)));
+    chessboard.getPiece(new Coordinates(7,0)).setState(1);
+    MoveTypes[][] ActualMS=
+            chessboard.getPiece(new Coordinates(7, 0)).moveSpace(chessboard);
+
+    for (int y = 0; y < 8; y++){
+      for (int x = 0; x < 8; x++){
+        ExpctedMs[x][y]=MoveTypes.ILLE;
+      }
+    }
+
     String[] s=grid2String(ExpctedMs, ActualMS);
 
     Assertions.assertEquals(s[0],s[1]);
@@ -160,4 +215,86 @@ public class MoveTest {
     Assertions.assertEquals(g.board.getPiece(new Coordinates(4 , 5 )).getPlayer(),Player.BLACK);
 
   }
+
+
+  @Test
+  public void TestTower() {
+    final Chessboard chessboard = new Chessboard();
+    MoveTypes[][] ExpctedMs = new MoveTypes[8][8];
+    chessboard.addPiece(new Rook(PieceType.ROOK, Player.WHITE, new Coordinates(4,4)));
+
+    chessboard.addPiece(new Rook(PieceType.ROOK, Player.WHITE, new Coordinates(2,4)));
+    chessboard.addPiece(new Rook(PieceType.ROOK, Player.BLACK, new Coordinates(6,4)));
+    MoveTypes[][] ActualMS= chessboard.getPiece(new Coordinates(4, 4)).moveSpace(chessboard);
+
+    for (int y = 0; y < 8; y++){
+      for (int x = 0; x < 8; x++){
+        ExpctedMs[x][y]=MoveTypes.ILLE;
+        if((x==4||y==4)&&x<6&&x>2){
+          ExpctedMs[x][y]=MoveTypes.MOVE;
+        }
+      }
+    }
+    ExpctedMs[4][4]=MoveTypes.ILLE;
+    ExpctedMs[6][4]=MoveTypes.TAKE;
+    String[] s=grid2String(ExpctedMs, ActualMS);
+
+    Assertions.assertEquals(s[0],s[1]);
+
+
+
+  }
+  @Test
+  public void TestTower2() {
+    final Chessboard chessboard = new Chessboard();
+    MoveTypes[][] ExpctedMs = new MoveTypes[8][8];
+    chessboard.addPiece(new Rook(PieceType.ROOK, Player.WHITE, new Coordinates(0, 0)));
+
+    MoveTypes[][] ActualMS = chessboard.getPiece(new Coordinates(0, 0)).moveSpace(chessboard);
+
+    for (int y = 0; y < 8; y++) {
+      for (int x = 0; x < 8; x++) {
+        ExpctedMs[x][y] = MoveTypes.ILLE;
+        if ((x == 0 || y == 0)) {
+          ExpctedMs[x][y] = MoveTypes.MOVE;
+        }
+      }
+    }
+    ExpctedMs[0][0] = MoveTypes.ILLE;
+
+    String[] s = grid2String(ExpctedMs, ActualMS);
+
+    Assertions.assertEquals(s[0], s[1]);
+  }
+
+  @Test
+  public void TestTower3() {
+    final Chessboard chessboard = new Chessboard();
+    MoveTypes[][] ExpctedMs = new MoveTypes[8][8];
+    chessboard.addPiece(new Rook(PieceType.ROOK, Player.WHITE, new Coordinates(7,7)));
+
+    MoveTypes[][] ActualMS = chessboard.getPiece(new Coordinates(7, 7)).moveSpace(chessboard);
+
+    for (int y = 0; y < 8; y++) {
+      for (int x = 0; x < 8; x++) {
+        ExpctedMs[x][y] = MoveTypes.ILLE;
+        if ((x == 7|| y == 7)) {
+          ExpctedMs[x][y] = MoveTypes.MOVE;
+        }
+      }
+    }
+    ExpctedMs[7][7] = MoveTypes.ILLE;
+
+    String[] s = grid2String(ExpctedMs, ActualMS);
+
+    Assertions.assertEquals(s[0], s[1]);
+  }
+
+
+
 }
+
+
+
+
+
