@@ -1,15 +1,34 @@
 package ax.ha.tdd.chess.engine;
 
+import ax.ha.tdd.chess.engine.pieces.ChessPiece;
+import ax.ha.tdd.chess.engine.pieces.PieceType;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Game {
 
     Chessboard board = Chessboard.startingBoard();
 
     //Feel free to delete this stuff. Just for initial testing.
     boolean isNewGame = true;
+    Player cPlayer=Player.WHITE;
+
+    class Move{
+      Coordinates[] c;
+      Player player;
+      PieceType piece;
+      Move(PieceType piece, Player player, Coordinates[] c){
+          this.player=player;
+          this.piece=piece;
+          this.c = c;
+      }
+    };
+    List<Move> moveList = new ArrayList<>();
+
 
     public Player getPlayerToMove() {
-        //TODO this should reflect the current state.
-        return Player.WHITE;
+        return cPlayer;
     }
 
     public Chessboard getBoard() {
@@ -30,12 +49,60 @@ public class Game {
         isNewGame = false;
         System.out.println("Player tried to perform move: " + move);
 
-        //TODO validate input
-        //TODO check if piece is valid
-        //TODO check if valid move
-            //TODO board.move
-            //TODO setMSg
-            //TODO player switch
+        //validates move
+        Coordinates[] m = validateInput(move);
+        if(m==null){
+            return;
+        }
+        ChessPiece cp = board.getPiece(m[0]);
+        if(cp == null){
+            return;
+        }
+        if(!cp.canMove(board, m[1])){
+            return;
+        }
+        //executes move
+        board.MovePiece(cp,m[1]);
+        moveList.add(new Move(cp.getPieceType(),cPlayer,m));
+        //switch player
+        if(cPlayer==Player.WHITE){
+            cPlayer=Player.BLACK;
+        }else{
+            cPlayer=Player.WHITE;
+        }
+    }
+
+    //validate input is valid
+    public Coordinates[] validateInput(String move){
+        move=move.trim();
+        Coordinates[] c = new Coordinates[2];
+        //assumes stings must be 5 chatacters
+        if(move.length()==5 && move.charAt(2)=='-' ){
+            boolean isNum=true;
+            String a= move.substring(0,2);
+            String b= move.substring(3,5);
+
+            //check if alphanumeric
+            if (a.matches(".*[a-h].*")&&a.matches(".*[1-8].*")&&
+                    b.matches(".*[a-h].*")&&b.matches(".*[1-8].*")){
+                c[0]=new Coordinates(a);
+                c[1]=new Coordinates(b);
+                if(c[1].equals(c[0])){ return null;}
+                return c;
+            //else check if numeric
+            }else if (!a.matches(".*[^1-8].*") && !b.matches(".*[^1-8].*")) {
+                c[0]=new Coordinates(
+                        Integer.parseInt(a.substring(0,1))-1,Integer.parseInt(a.substring(1,2))-1);
+                c[1]=new Coordinates(
+                        Integer.parseInt(b.substring(0,1))-1,Integer.parseInt(b.substring(1,2))-1);
+                if(c[1].equals(c[0])){ return null;}
+                return c;
+            }
+            //else input must be invalid, thus let it run to return null
+        }
+
+       return null;
+
 
     }
 }
