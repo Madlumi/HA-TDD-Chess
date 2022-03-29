@@ -7,6 +7,28 @@ public class GameTest {
 
 
   @Test
+  public void valideInputAndMoveTest() {
+      Game g = new Game();
+      MoveTypes[][] ExpctedMs = new MoveTypes[8][8];
+      //g.getBoard().MovePiece(g.getBoard().
+      //        getPiece(new Coordinates(3,1)), new Coordinates(3,3) );
+      g.move("42-44");
+      MoveTypes[][] ActualMS= g.getBoard().getPiece(new Coordinates(3, 3)).moveSpace(g.getBoard());
+
+      for (int y = 0; y < 8; y++){
+        for (int x = 0; x < 8; x++){
+          ExpctedMs[x][y]=MoveTypes.ILLE;
+        }
+      }
+
+      ExpctedMs[3][4]=MoveTypes.MOVE;
+      String[] s=MoveTest.grid2String(ExpctedMs, ActualMS);
+
+      Assertions.assertEquals(s[0],s[1]);
+    }
+
+
+  @Test
   public void valideInputTest() {
     String inString = "e4-d5\n";
     Coordinates[] c = {new Coordinates(4,4), new Coordinates(3,3) };

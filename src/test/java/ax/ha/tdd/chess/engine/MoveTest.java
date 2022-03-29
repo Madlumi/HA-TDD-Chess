@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 public class MoveTest {
 
-  public String[] grid2String(MoveTypes[][] a, MoveTypes[][] e){
+  public static String[] grid2String(MoveTypes[][] a, MoveTypes[][] e){
     //convert to string for readability
     String[] s = new String[2];
     s[0]="";
@@ -127,7 +127,7 @@ public class MoveTest {
   }
 
 
-  //@Test
+  @Test
   public void TestPawnBlackEnPes() {
     final Chessboard chessboard = new Chessboard();
     MoveTypes[][] ExpctedMs = new MoveTypes[8][8];
