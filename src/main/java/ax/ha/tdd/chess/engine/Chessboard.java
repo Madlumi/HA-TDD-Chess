@@ -51,11 +51,10 @@ public class Chessboard implements Iterable<ChessPiece[]> {
                 board[c.getY()][c.getX()] = chessPiece;
                 switch (chessPiece.getPlayer()){
                     case WHITE:
-                        board[c.getY()-1][c.getX()] = null;
-                        break;
-
-                    case BLACK:
                         board[c.getY()+1][c.getX()] = null;
+                        break;
+                    case BLACK:
+                        board[c.getY()-1][c.getX()] = null;
                         break;
                 }
                 break;

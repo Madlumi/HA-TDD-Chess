@@ -152,5 +152,12 @@ public class MoveTest {
     String[] s=grid2String(ExpctedMs, ActualMS);
 
     Assertions.assertEquals(s[0],s[1]);
+    g.move("45-56");
+    System.out.println(g.getLastMoveResult());
+    Assertions.assertEquals(g.board.getPiece(new Coordinates(3 , 4 )),null);
+    Assertions.assertEquals(g.board.getPiece(new Coordinates(4 , 4 )),null);
+    Assertions.assertEquals(g.board.getPiece(new Coordinates(4 , 5 )).getPieceType(),PieceType.PAWN);
+    Assertions.assertEquals(g.board.getPiece(new Coordinates(4 , 5 )).getPlayer(),Player.BLACK);
+
   }
 }
