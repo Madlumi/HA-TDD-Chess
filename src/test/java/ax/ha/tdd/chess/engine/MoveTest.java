@@ -129,14 +129,16 @@ public class MoveTest {
 
   @Test
   public void TestPawnBlackEnPes() {
-    final Chessboard chessboard = new Chessboard();
+    Game g = new Game();
+    g.board= new Chessboard();
     MoveTypes[][] ExpctedMs = new MoveTypes[8][8];
-    chessboard.addPiece(new Pawn(PieceType.PAWN, Player.BLACK, new Coordinates(3,4)));
-    chessboard.addPiece(new Pawn(PieceType.PAWN, Player.WHITE, new Coordinates(4,6)));
-    chessboard.MovePiece(chessboard.getPiece(new Coordinates(4,6)),new Coordinates(4,4));
+    g.board.addPiece(new Pawn(PieceType.PAWN, Player.BLACK, new Coordinates(3,4)));
+    g.board.addPiece(new Pawn(PieceType.PAWN, Player.WHITE, new Coordinates(4,6)));
 
+    //chessboard.MovePiece(chessboard.getPiece(new Coordinates(4,6)),new Coordinates(4,4));
+    g.move("57-55");
     //moveEnpes
-    MoveTypes[][] ActualMS= chessboard.getPiece(new Coordinates(3, 5)).moveSpace(chessboard);
+    MoveTypes[][] ActualMS= g.board.getPiece(new Coordinates(3, 4)).moveSpace(g.board);
 
     for (int y = 0; y < 8; y++){
       for (int x = 0; x < 8; x++){

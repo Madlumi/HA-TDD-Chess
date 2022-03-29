@@ -47,23 +47,25 @@ public class Pawn extends ChessPiece {
             chessboard.getPiece(new Coordinates(location.getX()-1, location.getY()+dir)).getPlayer().getSymbol()!=player.getSymbol()){
       moveSpace[location.getX()+1][location.getY()+dir]=MoveTypes.TAKE;
     }
+
     //check en pessante
+    if(chessboard.moveList.size()>0&&//make sure that it's not first move
+      chessboard.moveList.get(chessboard.moveList.size()-1).piece == PieceType.PAWN && //the last move needs to be the pawn
+      Math.abs(chessboard.moveList.get(chessboard.moveList.size()-1).c[1].getY()-
+      chessboard.moveList.get(chessboard.moveList.size()-1).c[0].getY()) == 2 && //make sure the move is 2, thus facilitating en pessante
+      chessboard.moveList.get(chessboard.moveList.size()-1).c[1].getY()==location.getY()){ //make sure that the Y is correct
+            //we dont need to check that spot is empty due to how the double step works
+            //check if next to the enpassable
+            if(chessboard.moveList.get(chessboard.moveList.size()-1).c[1].getX()- location.getX() == -1){
+              moveSpace[location.getX()-1][location.getY()+dir]=MoveTypes.ENPA;
+            }else if(chessboard.moveList.get(chessboard.moveList.size()-1).c[1].getX()- location.getX() == 1){
+              moveSpace[location.getX()+1][location.getY()+dir]=MoveTypes.ENPA;
+            }
 
-    if (chessboard.getPiece(new Coordinates(location.getX()+1, location.getY())) != null &&
-            chessboard.getPiece(new Coordinates(location.getX()+1, location.getY())).getPlayer().getSymbol()!=player.getSymbol()&&
-            chessboard.getPiece(new Coordinates(location.getX()+1, location.getY())).getPieceType().getSymbol() == "P" &&
-            chessboard.getPiece(new Coordinates(location.getX()+1, location.getY())).getState()==1
-    ){
-      moveSpace[location.getX()+1][location.getY()+dir]=MoveTypes.ENPA;
     }
-    if (chessboard.getPiece(new Coordinates(location.getX()-1, location.getY())) != null &&
-            chessboard.getPiece(new Coordinates(location.getX()-1, location.getY())).getPlayer().getSymbol()!=player.getSymbol()&&
-            chessboard.getPiece(new Coordinates(location.getX()-1, location.getY())).getPieceType().getSymbol() == "P" &&
-            chessboard.getPiece(new Coordinates(location.getX()-1, location.getY())).getState()==1
-    ){
 
-      moveSpace[location.getX()-1][location.getY()+dir]=MoveTypes.ENPA;
-    }
+      //
+
     return moveSpace;
   }
 

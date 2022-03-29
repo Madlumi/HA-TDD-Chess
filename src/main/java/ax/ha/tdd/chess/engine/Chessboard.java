@@ -16,7 +16,7 @@ public class Chessboard implements Iterable<ChessPiece[]> {
     // [y][x]
     private final ChessPiece[][] board = new ChessPiece[8][8];
 
-    List<Move> moveList = new ArrayList<>();
+    public List<Move> moveList = new ArrayList<>();
     public static Chessboard startingBoard() {
         final Chessboard chessboard = new Chessboard();
 
