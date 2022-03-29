@@ -13,7 +13,7 @@ public class Game {
     //Feel free to delete this stuff. Just for initial testing.
     boolean isNewGame = true;
     Player cPlayer=Player.WHITE;
-
+    boolean moveFail=false;
     class Move{
       Coordinates[] c;
       Player player;
@@ -41,12 +41,19 @@ public class Game {
         if (isNewGame) {
             return "Game hasn't begun";
         }
-        return "Last move was successful (default reply, change this)";
+        String s = "";
+        if(moveFail){s+="Illegal move! ";}
+        s+="Last move: ";
+        s+=moveList.get(moveList.size()-1).c[0].toAlgebraic();
+        s+=" moved to ";
+        s+=moveList.get(moveList.size()-1).c[1].toAlgebraic();
+        return s;
     }
 
     public void move(String move) {
         //TODO this should trigger your move logic.
         isNewGame = false;
+        moveFail=true;
         System.out.println("Player tried to perform move: " + move);
 
         //validates move
@@ -70,6 +77,7 @@ public class Game {
         }else{
             cPlayer=Player.WHITE;
         }
+        moveFail=false;
     }
 
     //validate input is valid

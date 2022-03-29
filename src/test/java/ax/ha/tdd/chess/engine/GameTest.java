@@ -26,6 +26,22 @@ public class GameTest {
 
       Assertions.assertEquals(s[0],s[1]);
     }
+  @Test
+  public void valideInputAndLastTest() {
+    Game g = new Game();
+    MoveTypes[][] ExpctedMs = new MoveTypes[8][8];
+    //g.getBoard().MovePiece(g.getBoard().
+    //        getPiece(new Coordinates(3,1)), new Coordinates(3,3) );
+    Assertions.assertEquals("Game hasn't begun",g.getLastMoveResult());
+    g.move("42-44");
+    Assertions.assertEquals("Last move: d7 moved to d5",g.getLastMoveResult());
+    g.move("44-45");
+    Assertions.assertEquals("Last move: d5 moved to d4",g.getLastMoveResult());
+    g.move("45-45");
+    Assertions.assertEquals("Illegal move! Last move: d5 moved to d4",g.getLastMoveResult());
+    g.move("aa-45");
+    Assertions.assertEquals("Illegal move! Last move: d5 moved to d4",g.getLastMoveResult());
+  }
 
 
   @Test
