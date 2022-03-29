@@ -26,6 +26,18 @@ public class GameTest {
 
       Assertions.assertEquals(s[0],s[1]);
     }
+
+  @Test
+  public void InvalidMoveTest() {
+    Game g = new Game();
+    MoveTypes[][] ExpctedMs = new MoveTypes[8][8];
+    //g.getBoard().MovePiece(g.getBoard().
+    //        getPiece(new Coordinates(3,1)), new Coordinates(3,3) );
+    g.move("42-45");
+    Assertions.assertEquals("Illegal move! Game hasn't begun",g.getLastMoveResult());
+  }
+
+
   @Test
   public void valideInputAndLastTest() {
     Game g = new Game();

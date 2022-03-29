@@ -22,13 +22,14 @@ public class Game {
     }
 
     public String getLastMoveResult() {
-        //TODO this should be used to show the player what happened
-        //Illegal move, correct move, e2 moved to e4 etc.
-        if (isNewGame) {
-            return "Game hasn't begun";
-        }
         String s = "";
         if(moveFail){s+="Illegal move! ";}
+
+        if (isNewGame) {
+            s+= "Game hasn't begun";
+            return s;
+        }
+
         s+="Last move: ";
         s+=board.moveList.get(board.moveList.size()-1).c[0].toAlgebraic();
         s+=" moved to ";
@@ -37,11 +38,7 @@ public class Game {
     }
 
     public void move(String move) {
-        //TODO this should trigger your move logic.
-        isNewGame = false;
         moveFail=true;
-        System.out.println("Player tried to perform move: " + move);
-
         //validates move
         Coordinates[] m = validateInput(move);
         if(m==null){
@@ -63,6 +60,7 @@ public class Game {
         }else{
             cPlayer=Player.WHITE;
         }
+        isNewGame = false;
         moveFail=false;
     }
 
