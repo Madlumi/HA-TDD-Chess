@@ -1,9 +1,6 @@
 package ax.ha.tdd.chess.engine;
 
-import ax.ha.tdd.chess.engine.pieces.Bishop;
-import ax.ha.tdd.chess.engine.pieces.Pawn;
-import ax.ha.tdd.chess.engine.pieces.PieceType;
-import ax.ha.tdd.chess.engine.pieces.Rook;
+import ax.ha.tdd.chess.engine.pieces.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -315,7 +312,33 @@ public class MoveTest {
 
 
   }
+  @Test
+  public void TestQeeen() {
+    final Chessboard chessboard = new Chessboard();
+    MoveTypes[][] ExpctedMs = new MoveTypes[8][8];
+    chessboard.addPiece(new Queen(PieceType.QUEEN, Player.WHITE, new Coordinates(4,4)));
 
+    //chessboard.addPiece(new Rook(PieceType.ROOK, Player.WHITE, new Coordinates(2,4)));
+    //chessboard.addPiece(new Rook(PieceType.ROOK, Player.BLACK, new Coordinates(6,4)));
+    MoveTypes[][] ActualMS= chessboard.getPiece(new Coordinates(4, 4)).moveSpace(chessboard);
+
+    for (int y = 0; y < 8; y++){
+      for (int x = 0; x < 8; x++){
+        ExpctedMs[x][y]=MoveTypes.ILLE;
+        if(Math.abs(x-4)==Math.abs(y-4)||(x==4||y==4)){
+          ExpctedMs[x][y]=MoveTypes.MOVE;
+        }
+      }
+    }
+    ExpctedMs[4][4]=MoveTypes.ILLE;
+
+    String[] s=grid2String(ExpctedMs, ActualMS);
+
+    Assertions.assertEquals(s[0],s[1]);
+
+
+
+  }
 }
 
 

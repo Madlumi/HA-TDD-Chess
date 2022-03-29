@@ -17,12 +17,7 @@ public class Bishop extends ChessPiece{
 
   @Override
   public MoveTypes[][] moveSpace(Chessboard b) {
-    MoveTypes[][] moveSpace = new MoveTypes[8][8];
-    for (int y = 0; y < 8; y++){
-      for (int x = 0; x < 8; x++){
-        moveSpace[x][y]=MoveTypes.ILLE;
-      }
-    }
+    MoveTypes[][] moveSpace = BaseSpace();
     moveSpace=BishopSpace(b,moveSpace);
     return moveSpace;
   }

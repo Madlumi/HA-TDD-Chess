@@ -71,6 +71,18 @@ public abstract class ChessPiece {
         state = i;
     }
 
+
+    public MoveTypes[][] BaseSpace() {
+        MoveTypes[][] ms = new MoveTypes[8][8];
+        for (int y = 0; y < 8; y++){
+            for (int x = 0; x < 8; x++){
+                ms[x][y]=MoveTypes.ILLE;
+            }
+        }
+        return ms;
+    }
+
+
     public MoveTypes[][] TowerSpace(Chessboard b, MoveTypes[][] ms) {
         int ydir= -1;
         int xdir= -1;

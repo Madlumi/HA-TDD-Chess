@@ -23,12 +23,8 @@ public class Pawn extends ChessPiece {
     if (player.getSymbol()=="B"){dir=1;}else{dir=-1;}
 
     //init the array
-    MoveTypes[][] moveSpace = new MoveTypes[8][8];
-    for (int y = 0; y < 8; y++){
-      for (int x = 0; x < 8; x++){
-        moveSpace[x][y]=MoveTypes.ILLE;
-      }
-    }
+    MoveTypes[][] moveSpace = BaseSpace();
+
     if(location.getY()+dir<0 || location.getY()+dir>7){
       return moveSpace;
     }
