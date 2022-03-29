@@ -1,10 +1,6 @@
 package ax.ha.tdd.chess.engine;
 
 import ax.ha.tdd.chess.engine.pieces.ChessPiece;
-import ax.ha.tdd.chess.engine.pieces.PieceType;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Game {
 
@@ -14,17 +10,7 @@ public class Game {
     boolean isNewGame = true;
     Player cPlayer=Player.WHITE;
     boolean moveFail=false;
-    class Move{
-      Coordinates[] c;
-      Player player;
-      PieceType piece;
-      Move(PieceType piece, Player player, Coordinates[] c){
-          this.player=player;
-          this.piece=piece;
-          this.c = c;
-      }
-    };
-    List<Move> moveList = new ArrayList<>();
+
 
 
     public Player getPlayerToMove() {
@@ -44,9 +30,9 @@ public class Game {
         String s = "";
         if(moveFail){s+="Illegal move! ";}
         s+="Last move: ";
-        s+=moveList.get(moveList.size()-1).c[0].toAlgebraic();
+        s+=board.moveList.get(board.moveList.size()-1).c[0].toAlgebraic();
         s+=" moved to ";
-        s+=moveList.get(moveList.size()-1).c[1].toAlgebraic();
+        s+=board.moveList.get(board.moveList.size()-1).c[1].toAlgebraic();
         return s;
     }
 
@@ -70,7 +56,7 @@ public class Game {
         }
         //executes move
         board.MovePiece(cp,m[1]);
-        moveList.add(new Move(cp.getPieceType(),cPlayer,m));
+        board.moveList.add(new Move(cp.getPieceType(),cPlayer,m));
         //switch player
         if(cPlayer==Player.WHITE){
             cPlayer=Player.BLACK;

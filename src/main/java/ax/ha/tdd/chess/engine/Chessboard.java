@@ -5,6 +5,7 @@ import ax.ha.tdd.chess.engine.pieces.ChessPieceStub;
 import ax.ha.tdd.chess.engine.pieces.Pawn;
 import ax.ha.tdd.chess.engine.pieces.PieceType;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class Chessboard implements Iterable<ChessPiece[]> {
     // [y][x]
     private final ChessPiece[][] board = new ChessPiece[8][8];
 
+    List<Move> moveList = new ArrayList<>();
     public static Chessboard startingBoard() {
         final Chessboard chessboard = new Chessboard();
 

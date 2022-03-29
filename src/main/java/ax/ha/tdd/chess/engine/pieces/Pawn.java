@@ -48,6 +48,7 @@ public class Pawn extends ChessPiece {
       moveSpace[location.getX()+1][location.getY()+dir]=MoveTypes.TAKE;
     }
     //check en pessante
+
     if (chessboard.getPiece(new Coordinates(location.getX()+1, location.getY())) != null &&
             chessboard.getPiece(new Coordinates(location.getX()+1, location.getY())).getPlayer().getSymbol()!=player.getSymbol()&&
             chessboard.getPiece(new Coordinates(location.getX()+1, location.getY())).getPieceType().getSymbol() == "P" &&
