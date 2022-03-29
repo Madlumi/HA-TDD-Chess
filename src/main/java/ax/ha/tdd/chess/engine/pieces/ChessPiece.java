@@ -72,11 +72,6 @@ public abstract class ChessPiece {
     }
 
     public MoveTypes[][] TowerSpace(Chessboard b, MoveTypes[][] moveSpace) {
-        for (int y = 0; y < 8; y++){
-            for (int x = 0; x < 8; x++){
-                moveSpace[x][y]=MoveTypes.ILLE;
-            }
-        }
         int x = location.getX()+1;
         while(x<8){
             if(b.getPiece(new Coordinates(x, location.getY()))==null){
@@ -128,4 +123,32 @@ public abstract class ChessPiece {
         }
         return moveSpace;
     }
+
+    public MoveTypes[][] BishopSpace(Chessboard b, MoveTypes[][] ms) {
+        int ydir= -1;
+        int xdir= -1;
+        ms=bishopHelper(b,ms,-1,-1);
+        ms=bishopHelper(b,ms,1,-1);
+        ms=bishopHelper(b,ms,-1,1);
+        ms=bishopHelper(b,ms,1,1);
+        return ms;
+    }
+    private MoveTypes[][] bishopHelper(Chessboard b, MoveTypes[][] moveSpace,int xdir,int ydir){
+        int x = location.getX()+xdir;
+        int y = location.getX()-ydir;
+        while(x>=0&&y>=0 && x<8&&y<8){
+            if(b.getPiece(new Coordinates(x, y))==null){
+                moveSpace[x][ y]=MoveTypes.MOVE;
+            }else if(b.getPiece(new Coordinates(x, y)).getPlayer()!=getPlayer()){
+                moveSpace[x][ y]=MoveTypes.TAKE;
+                break;
+            }else{
+                break;
+            }
+            x+=xdir;
+            y-=ydir;
+        }
+        return moveSpace;
+    }
+
 }
