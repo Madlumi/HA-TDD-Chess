@@ -37,6 +37,32 @@ public class Chessboard implements Iterable<ChessPiece[]> {
         board[chessPiece.getLocation().getY()][chessPiece.getLocation().getX()] = chessPiece;
     }
 
+
+    public  MoveTypes[][] ThreatSpace(Player player){
+        MoveTypes[][] ms = ChessPiece.BaseSpace();
+
+        for (int y = 0; y < 8; y++){
+            for (int x = 0; x < 8; x++){
+                if(getPiece(new Coordinates(x,y))!=null && getPiece(new Coordinates(x,y)).getPlayer()!=player){
+                    MoveTypes[][] ms2 =
+                            getPiece(new Coordinates(x,y)).moveSpace(this);
+
+                    for (int yy = 0; yy < 8; yy++) {
+                        for (int xx = 0; xx < 8; xx++) {
+                            if(ms2[xx][yy]!=MoveTypes.ILLE){
+                                ms[xx][yy]=ms2[xx][yy];
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+
+        return ms;
+    }
+
+
     public boolean MovePiece(final ChessPiece chessPiece, final Coordinates c) {
         board[chessPiece.getLocation().getY()][chessPiece.getLocation().getX()] = null;
         MoveTypes mt = chessPiece.moveSpace(this)[c.getX()][c.getY()];

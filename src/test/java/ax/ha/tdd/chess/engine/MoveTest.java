@@ -339,6 +339,79 @@ public class MoveTest {
 
 
   }
+
+  @Test
+  public void TestKing() {
+    final Chessboard chessboard = new Chessboard();
+    MoveTypes[][] ExpctedMs = new MoveTypes[8][8];
+    chessboard.addPiece(new King(PieceType.KING, Player.WHITE, new Coordinates(4,4)));
+
+    //chessboard.addPiece(new Rook(PieceType.ROOK, Player.WHITE, new Coordinates(2,4)));
+    //chessboard.addPiece(new Rook(PieceType.ROOK, Player.BLACK, new Coordinates(6,4)));
+    MoveTypes[][] ActualMS= chessboard.getPiece(new Coordinates(4, 4)).moveSpace(chessboard);
+
+    for (int y = 0; y < 8; y++){
+      for (int x = 0; x < 8; x++){
+        ExpctedMs[x][y]=MoveTypes.ILLE;
+        if(Math.abs(x-4)<2 && Math.abs(y-4)<2){
+          ExpctedMs[x][y]=MoveTypes.MOVE;
+        }
+      }
+    }
+    ExpctedMs[4][4]=MoveTypes.ILLE;
+
+    String[] s=grid2String(ExpctedMs, ActualMS);
+
+    Assertions.assertEquals(s[0],s[1]);
+
+
+
+  }
+
+
+  @Test
+  public void TestKing2() {
+    Game g = new  Game();
+    g.board=new Chessboard();
+    MoveTypes[][] ExpctedMs = new MoveTypes[8][8];
+    g.board.addPiece(new King(PieceType.KING, Player.WHITE, new Coordinates(4,6)));
+
+    g.board.addPiece(new Rook(PieceType.ROOK, Player.BLACK, new Coordinates(3,0)));
+
+    g.board.addPiece(new Rook(PieceType.ROOK, Player.WHITE, new Coordinates(5,1)));
+
+
+    //g.board.addPiece(new Pawn(PieceType.PAWN, Player.WHITE, new Coordinates(4,6)));
+
+    //chessboard.MovePiece(chessboard.getPiece(new Coordinates(4,6)),new Coordinates(4,4));
+
+    g.board.addPiece(new King(PieceType.KING, Player.BLACK, new Coordinates(6,3)));
+    System.out.println( new Coordinates(3,0) +"-"+ new Coordinates(3,7));
+    g.move("57-56");
+    g.move("d8-d7");
+
+
+
+
+    MoveTypes[][] ActualMS= g.board.getPiece(new Coordinates(4, 5)).moveSpace(g.board);
+
+    for (int y = 0; y < 8; y++){
+      for (int x = 0; x < 8; x++){
+        ExpctedMs[x][y]=MoveTypes.ILLE;
+        if(Math.abs(x-4)<2 && Math.abs(y-5)<2 && x!=3){
+          ExpctedMs[x][y]=MoveTypes.MOVE;
+        }
+      }
+    }
+    ExpctedMs[4][5]=MoveTypes.ILLE;
+    ExpctedMs[5][4]=MoveTypes.ILLE;
+    String[] s=grid2String(ExpctedMs, ActualMS);
+
+    Assertions.assertEquals(s[0],s[1]);
+
+
+
+  }
 }
 
 

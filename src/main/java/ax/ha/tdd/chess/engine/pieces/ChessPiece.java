@@ -72,7 +72,7 @@ public abstract class ChessPiece {
     }
 
 
-    public MoveTypes[][] BaseSpace() {
+    public static MoveTypes[][] BaseSpace() {
         MoveTypes[][] ms = new MoveTypes[8][8];
         for (int y = 0; y < 8; y++){
             for (int x = 0; x < 8; x++){
@@ -84,28 +84,26 @@ public abstract class ChessPiece {
 
 
     public MoveTypes[][] TowerSpace(Chessboard b, MoveTypes[][] ms) {
-        int ydir= -1;
-        int xdir= -1;
-        ms=bishopHelper(b,ms,-1,0);
-        ms=bishopHelper(b,ms,1,0);
-        ms=bishopHelper(b,ms,0,1);
-        ms=bishopHelper(b,ms,0,-1);
+
+        ms=bishopHelper(b,ms,-1,0,false);
+        ms=bishopHelper(b,ms,1,0,false);
+        ms=bishopHelper(b,ms,0,1,false);
+        ms=bishopHelper(b,ms,0,-1,false);
         return ms;
     }
 
     public MoveTypes[][] BishopSpace(Chessboard b, MoveTypes[][] ms) {
-        int ydir= -1;
-        int xdir= -1;
-        ms=bishopHelper(b,ms,-1,-1);
-        ms=bishopHelper(b,ms,1,-1);
-        ms=bishopHelper(b,ms,-1,1);
-        ms=bishopHelper(b,ms,1,1);
+
+        ms=bishopHelper(b,ms,-1,-1,false);
+        ms=bishopHelper(b,ms,1,-1,false);
+        ms=bishopHelper(b,ms,-1,1,false);
+        ms=bishopHelper(b,ms,1,1,false);
         return ms;
     }
 
-    private MoveTypes[][] bishopHelper(Chessboard b, MoveTypes[][] moveSpace,int xdir,int ydir){
+    protected MoveTypes[][] bishopHelper(Chessboard b, MoveTypes[][] moveSpace,int xdir,int ydir, boolean king){
         int x = location.getX()+xdir;
-        int y = location.getX()-ydir;
+        int y = location.getY()+ydir;
         while(x>=0&&y>=0 && x<8&&y<8){
             if(b.getPiece(new Coordinates(x, y))==null){
                 moveSpace[x][ y]=MoveTypes.MOVE;
@@ -114,9 +112,11 @@ public abstract class ChessPiece {
                 break;
             }else{
                 break;
+            }if(king){
+                break;
             }
             x+=xdir;
-            y-=ydir;
+            y+=ydir;
         }
         return moveSpace;
     }

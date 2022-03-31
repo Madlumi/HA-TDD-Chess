@@ -18,6 +18,7 @@ public class Coordinates {
         this.y = y;
     }
 
+
     // In case you want to use Algebraic notation when writing tests instead
     public Coordinates(String algebraic) {
         char letter = algebraic.charAt(0);
