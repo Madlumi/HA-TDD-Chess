@@ -3,7 +3,7 @@ package ax.ha.tdd.chess.console;
 import ax.ha.tdd.chess.engine.Chessboard;
 import ax.ha.tdd.chess.engine.Coordinates;
 import ax.ha.tdd.chess.engine.Player;
-import ax.ha.tdd.chess.engine.pieces.ChessPieceStub;
+import ax.ha.tdd.chess.engine.pieces.Pawn;
 import ax.ha.tdd.chess.engine.pieces.PieceType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -50,7 +50,7 @@ public class ChessboardWriterTest {
 
                 " *    *    *    *    *    *    *    * \n";
         Chessboard chessboard = new Chessboard();
-        chessboard.addPiece(new ChessPieceStub(PieceType.PAWN, Player.BLACK, new Coordinates(2, 4)));
+        chessboard.addPiece(new Pawn(PieceType.PAWN, Player.BLACK, new Coordinates(2, 4)));
         Assertions.assertEquals(expectedChessboard, new ChessboardWriter().print(chessboard));
     }
 

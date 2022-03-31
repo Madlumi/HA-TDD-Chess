@@ -41,6 +41,7 @@ public class Game {
         moveFail=true;
         //validates move
         Coordinates[] m = validateInput(move);
+
         if(m==null){
             return;
         }
@@ -90,6 +91,7 @@ public class Game {
                         Integer.parseInt(a.substring(0,1))-1,Integer.parseInt(a.substring(1,2))-1);
                 c[1]=new Coordinates(
                         Integer.parseInt(b.substring(0,1))-1,Integer.parseInt(b.substring(1,2))-1);
+
                 if(c[1].equals(c[0])){ return null;}
                 return c;
             }

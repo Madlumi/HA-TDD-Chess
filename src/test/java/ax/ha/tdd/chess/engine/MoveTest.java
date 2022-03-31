@@ -444,6 +444,27 @@ public class MoveTest {
 
   }
   @Test
+  public void TestKingTowerDo() {
+    Game g = new  Game();
+    g.board=new Chessboard();
+    g.board.addPiece(new King(PieceType.KING, Player.BLACK, new Coordinates(4,0)));
+
+    g.board.addPiece(new Rook(PieceType.ROOK, Player.BLACK, new Coordinates(0,0)));
+    g.board.addPiece(new Rook(PieceType.ROOK, Player.BLACK, new Coordinates(7,0)));
+
+    g.board.addPiece(new King(PieceType.KING, Player.WHITE, new Coordinates(4,7)));
+    g.move("e1-e2");
+
+    g.move("e8-a8");
+
+    Assertions.assertEquals(g.board.getPiece(new Coordinates(0,0)).getPieceType(),PieceType.KING);
+    Assertions.assertEquals(g.board.getPiece(new Coordinates(4,0)).getPieceType(),PieceType.ROOK);
+    Assertions.assertEquals(g.board.getPiece(new Coordinates(7,0)).getPieceType(),PieceType.ROOK);
+
+  }
+
+
+  @Test
   public void TestKingTowerIleeg() {
     Game g = new  Game();
     g.board=new Chessboard();

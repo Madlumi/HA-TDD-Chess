@@ -82,7 +82,10 @@ public class Chessboard implements Iterable<ChessPiece[]> {
                 }
                 break;
             case CAST:
-                break;
+                ChessPiece rook= board[c.getY()][c.getX()];
+                Coordinates c2 = chessPiece.getLocation();
+                board[c.getY()][c.getX()] = chessPiece;
+                board[c2.getY()][c2.getX()] = rook;
             case ILLE:
                 return false;
         }
@@ -90,16 +93,7 @@ public class Chessboard implements Iterable<ChessPiece[]> {
         chessPiece.moved();
         return true;
     }
-    /**
-     * Helper method to initialize chessboard with {@link ChessPieceStub}.
-     * Basically mirrors all added pieces for both players.
-     * When all pieces has been implemented, this should be replaced with the proper implementations.
-     *
-     * @param pieceType pieceType
-     * @param xCoordinates xCoordinates
-     * @param yCoordinate yCoordinateOffset
-     * @return itself, like a builder pattern
-     */
+
     private Chessboard withMirroredPiece(final PieceType pieceType,
                                          final List<Integer> xCoordinates, final int yCoordinate) {
         xCoordinates.forEach(xCoordinate -> {

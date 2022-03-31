@@ -12,7 +12,8 @@ public class GameTest {
       MoveTypes[][] ExpctedMs = new MoveTypes[8][8];
       //g.getBoard().MovePiece(g.getBoard().
       //        getPiece(new Coordinates(3,1)), new Coordinates(3,3) );
-      g.move("42-44");
+    g.cPlayer=Player.BLACK;
+    g.move("42-44");
       MoveTypes[][] ActualMS= g.getBoard().getPiece(new Coordinates(3, 3)).moveSpace(g.getBoard());
 
       for (int y = 0; y < 8; y++){
@@ -44,13 +45,18 @@ public class GameTest {
     MoveTypes[][] ExpctedMs = new MoveTypes[8][8];
     //g.getBoard().MovePiece(g.getBoard().
     //        getPiece(new Coordinates(3,1)), new Coordinates(3,3) );
+
     Assertions.assertEquals("Game hasn't begun",g.getLastMoveResult());
+    g.cPlayer=Player.BLACK;
     g.move("42-44");
     Assertions.assertEquals("Last move: d7 moved to d5",g.getLastMoveResult());
+    g.cPlayer=Player.BLACK;
     g.move("44-45");
     Assertions.assertEquals("Last move: d5 moved to d4",g.getLastMoveResult());
+    g.cPlayer=Player.BLACK;
     g.move("45-45");
     Assertions.assertEquals("Illegal move! Last move: d5 moved to d4",g.getLastMoveResult());
+    g.cPlayer=Player.BLACK;
     g.move("aa-45");
     Assertions.assertEquals("Illegal move! Last move: d5 moved to d4",g.getLastMoveResult());
   }
