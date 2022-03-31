@@ -1,9 +1,6 @@
 package ax.ha.tdd.chess.engine;
 
-import ax.ha.tdd.chess.engine.pieces.ChessPiece;
-import ax.ha.tdd.chess.engine.pieces.ChessPieceStub;
-import ax.ha.tdd.chess.engine.pieces.Pawn;
-import ax.ha.tdd.chess.engine.pieces.PieceType;
+import ax.ha.tdd.chess.engine.pieces.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -111,9 +108,26 @@ public class Chessboard implements Iterable<ChessPiece[]> {
                     addPiece(new Pawn(pieceType, Player.BLACK, new Coordinates(xCoordinate, yCoordinate)));
                     addPiece(new Pawn(pieceType, Player.WHITE, new Coordinates(xCoordinate, 7 - yCoordinate)));
                     break;
-                default:
-                    addPiece(new ChessPieceStub(pieceType, Player.BLACK, new Coordinates(xCoordinate, yCoordinate)));
-                    addPiece(new ChessPieceStub(pieceType, Player.WHITE, new Coordinates(xCoordinate, 7 - yCoordinate)));
+                case BISHOP:
+                    addPiece(new Bishop(pieceType, Player.BLACK, new Coordinates(xCoordinate, yCoordinate)));
+                    addPiece(new Bishop(pieceType, Player.WHITE, new Coordinates(xCoordinate, 7 - yCoordinate)));
+                    break;
+                case KNIGHT:
+                    addPiece(new Horsie(pieceType, Player.BLACK, new Coordinates(xCoordinate, yCoordinate)));
+                    addPiece(new Horsie(pieceType, Player.WHITE, new Coordinates(xCoordinate, 7 - yCoordinate)));
+                    break;
+                case KING:
+                    addPiece(new King(pieceType, Player.BLACK, new Coordinates(xCoordinate, yCoordinate)));
+                    addPiece(new King(pieceType, Player.WHITE, new Coordinates(xCoordinate, 7 - yCoordinate)));
+                    break;
+                case QUEEN:
+                    addPiece(new Queen(pieceType, Player.BLACK, new Coordinates(xCoordinate, yCoordinate)));
+                    addPiece(new Queen(pieceType, Player.WHITE, new Coordinates(xCoordinate, 7 - yCoordinate)));
+                    break;
+                case ROOK:
+                    addPiece(new Rook(pieceType, Player.BLACK, new Coordinates(xCoordinate, yCoordinate)));
+                    addPiece(new Rook(pieceType, Player.WHITE, new Coordinates(xCoordinate, 7 - yCoordinate)));
+                    break;
             }
 
         });

@@ -16,11 +16,15 @@ public class Horsie extends ChessPiece{
   }
 
   @Override
-  public MoveTypes[][] moveSpace(Chessboard chessboard) {
+  public MoveTypes[][] moveSpace(Chessboard b) {
     MoveTypes[][] ms = BaseSpace();
-    //TODO
 
-
+    for(int y = -2;y<3;y++){
+      for(int x = -2;x<3;x++){
+        if(Math.abs(x*y)==2){
+          ms=bishopHelper(b,ms,x,y,true);
+        }
+    }}
     return ms;
   }
 

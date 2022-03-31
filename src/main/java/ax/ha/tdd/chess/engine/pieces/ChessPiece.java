@@ -101,7 +101,7 @@ public abstract class ChessPiece {
         return ms;
     }
 
-    protected MoveTypes[][] bishopHelper(Chessboard b, MoveTypes[][] moveSpace,int xdir,int ydir, boolean king){
+    protected MoveTypes[][] bishopHelper(Chessboard b, MoveTypes[][] moveSpace,int xdir,int ydir, boolean one){
         int x = location.getX()+xdir;
         int y = location.getY()+ydir;
         while(x>=0&&y>=0 && x<8&&y<8){
@@ -112,7 +112,7 @@ public abstract class ChessPiece {
                 break;
             }else{
                 break;
-            }if(king){
+            }if(one){
                 break;
             }
             x+=xdir;

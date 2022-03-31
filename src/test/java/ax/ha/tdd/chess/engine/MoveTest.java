@@ -409,9 +409,70 @@ public class MoveTest {
 
     Assertions.assertEquals(s[0],s[1]);
 
+  }
+
+
+
+  @Test
+  public void TestHorse() {
+    Game g = new  Game();
+    g.board=new Chessboard();
+    MoveTypes[][] ExpctedMs = new MoveTypes[8][8];
+    g.board.addPiece(new Horsie(PieceType.KNIGHT, Player.WHITE, new Coordinates(4,4)));
+
+
+
+    MoveTypes[][] ActualMS= g.board.getPiece(new Coordinates(4, 4)).moveSpace(g.board);
+
+    for (int y = 0; y < 8; y++){
+      for (int x = 0; x < 8; x++){
+        ExpctedMs[x][y]=MoveTypes.ILLE;
+      }
+    }
+    ExpctedMs[4][4]=MoveTypes.ILLE;
+
+    ExpctedMs[4+2][4-1]=MoveTypes.MOVE;
+    ExpctedMs[4-2][4-1]=MoveTypes.MOVE;
+
+    ExpctedMs[4+2][4+1]=MoveTypes.MOVE;
+    ExpctedMs[4-2][4+1]=MoveTypes.MOVE;
+
+    ExpctedMs[4+1][4+2]=MoveTypes.MOVE;
+    ExpctedMs[4+1][4-2]=MoveTypes.MOVE;
+
+    ExpctedMs[4-1][4+2]=MoveTypes.MOVE;
+    ExpctedMs[4-1][4-2]=MoveTypes.MOVE;
+
+    String[] s=grid2String(ExpctedMs, ActualMS);
+
+    Assertions.assertEquals(s[0],s[1]);
+
 
 
   }
+  @Test
+  public void TestHorse2() {
+    Game g = new  Game();
+    MoveTypes[][] ExpctedMs = new MoveTypes[8][8];
+
+    MoveTypes[][] ActualMS= g.board.getPiece(new Coordinates(1, 7)).moveSpace(g.board);
+    for (int y = 0; y < 8; y++){
+      for (int x = 0; x < 8; x++){
+        ExpctedMs[x][y]=MoveTypes.ILLE;
+      }
+    }
+
+    ExpctedMs[0][5]=MoveTypes.MOVE;
+    ExpctedMs[2][5]=MoveTypes.MOVE;
+
+    String[] s=grid2String(ExpctedMs, ActualMS);
+
+    Assertions.assertEquals(s[0],s[1]);
+
+
+
+  }
+
 }
 
 
