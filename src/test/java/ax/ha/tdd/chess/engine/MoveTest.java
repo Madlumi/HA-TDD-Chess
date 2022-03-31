@@ -363,9 +363,6 @@ public class MoveTest {
     String[] s=grid2String(ExpctedMs, ActualMS);
 
     Assertions.assertEquals(s[0],s[1]);
-
-
-
   }
 
 
@@ -412,6 +409,147 @@ public class MoveTest {
   }
 
 
+  @Test
+  public void TestKingTower() {
+    Game g = new  Game();
+    g.board=new Chessboard();
+    MoveTypes[][] ExpctedMs = new MoveTypes[8][8];
+    g.board.addPiece(new King(PieceType.KING, Player.BLACK, new Coordinates(4,0)));
+
+    g.board.addPiece(new Rook(PieceType.ROOK, Player.BLACK, new Coordinates(0,0)));
+    g.board.addPiece(new Rook(PieceType.ROOK, Player.BLACK, new Coordinates(7,0)));
+
+    g.board.addPiece(new King(PieceType.KING, Player.WHITE, new Coordinates(4,7)));
+    g.move("e1-e2");
+
+    MoveTypes[][] ActualMS= g.board.getPiece(new Coordinates(4, 0)).moveSpace(g.board);
+
+    for (int y = 0; y < 8; y++){
+      for (int x = 0; x < 8; x++){
+        ExpctedMs[x][y]=MoveTypes.ILLE;
+      }
+    }
+    ExpctedMs[4][1]=MoveTypes.MOVE;
+    ExpctedMs[3][1]=MoveTypes.MOVE;
+    ExpctedMs[5][1]=MoveTypes.MOVE;
+    ExpctedMs[3][0]=MoveTypes.MOVE;
+    ExpctedMs[5][0]=MoveTypes.MOVE;
+
+    ExpctedMs[0][0]=MoveTypes.CAST;
+    ExpctedMs[7][0]=MoveTypes.CAST;
+
+    String[] s=grid2String(ExpctedMs, ActualMS);
+
+    Assertions.assertEquals(s[0],s[1]);
+
+  }
+  @Test
+  public void TestKingTowerIleeg() {
+    Game g = new  Game();
+    g.board=new Chessboard();
+    MoveTypes[][] ExpctedMs = new MoveTypes[8][8];
+    g.board.addPiece(new King(PieceType.KING, Player.BLACK, new Coordinates(4,0)));
+
+    g.board.addPiece(new Rook(PieceType.ROOK, Player.BLACK, new Coordinates(0,0)));
+    g.board.addPiece(new Rook(PieceType.ROOK, Player.BLACK, new Coordinates(7,0)));
+
+    g.board.addPiece(new King(PieceType.KING, Player.WHITE, new Coordinates(4,7)));
+
+    g.board.addPiece(new Rook(PieceType.ROOK, Player.WHITE, new Coordinates(4,5)));
+
+    g.move("e1-e2");
+
+    MoveTypes[][] ActualMS= g.board.getPiece(new Coordinates(4, 0)).moveSpace(g.board);
+
+    for (int y = 0; y < 8; y++){
+      for (int x = 0; x < 8; x++){
+        ExpctedMs[x][y]=MoveTypes.ILLE;
+      }
+    }
+    //ExpctedMs[4][1]=MoveTypes.MOVE;
+    ExpctedMs[3][1]=MoveTypes.MOVE;
+    ExpctedMs[5][1]=MoveTypes.MOVE;
+    ExpctedMs[3][0]=MoveTypes.MOVE;
+    ExpctedMs[5][0]=MoveTypes.MOVE;
+
+
+    String[] s=grid2String(ExpctedMs, ActualMS);
+
+    Assertions.assertEquals(s[0],s[1]);
+
+  }
+  @Test
+  public void TestKingTowerIleeg2() {
+    Game g = new  Game();
+    g.board=new Chessboard();
+    MoveTypes[][] ExpctedMs = new MoveTypes[8][8];
+    g.board.addPiece(new King(PieceType.KING, Player.BLACK, new Coordinates(4,0)));
+
+    g.board.addPiece(new Rook(PieceType.ROOK, Player.BLACK, new Coordinates(0,0)));
+    g.board.addPiece(new Rook(PieceType.ROOK, Player.BLACK, new Coordinates(7,0)));
+
+    g.board.addPiece(new King(PieceType.KING, Player.WHITE, new Coordinates(4,7)));
+
+    g.board.addPiece(new Rook(PieceType.ROOK, Player.WHITE, new Coordinates(0,5)));
+    g.board.addPiece(new Rook(PieceType.ROOK, Player.WHITE, new Coordinates(7,5)));
+
+    g.move("e1-e2");
+
+    MoveTypes[][] ActualMS= g.board.getPiece(new Coordinates(4, 0)).moveSpace(g.board);
+
+    for (int y = 0; y < 8; y++){
+      for (int x = 0; x < 8; x++){
+        ExpctedMs[x][y]=MoveTypes.ILLE;
+      }
+    }
+    ExpctedMs[4][1]=MoveTypes.MOVE;
+    ExpctedMs[3][1]=MoveTypes.MOVE;
+    ExpctedMs[5][1]=MoveTypes.MOVE;
+    ExpctedMs[3][0]=MoveTypes.MOVE;
+    ExpctedMs[5][0]=MoveTypes.MOVE;
+
+
+    String[] s=grid2String(ExpctedMs, ActualMS);
+
+    Assertions.assertEquals(s[0],s[1]);
+
+  }
+  @Test
+  public void TestKingTowerIleeg3() {
+    Game g = new  Game();
+    g.board=new Chessboard();
+    MoveTypes[][] ExpctedMs = new MoveTypes[8][8];
+    g.board.addPiece(new King(PieceType.KING, Player.BLACK, new Coordinates(4,0)));
+
+    g.board.addPiece(new Rook(PieceType.ROOK, Player.BLACK, new Coordinates(0,0)));
+    g.board.addPiece(new Rook(PieceType.ROOK, Player.BLACK, new Coordinates(7,0)));
+
+    g.board.addPiece(new King(PieceType.KING, Player.WHITE, new Coordinates(4,7)));
+
+    g.board.addPiece(new Rook(PieceType.ROOK, Player.WHITE, new Coordinates(2,5)));
+    g.board.addPiece(new Rook(PieceType.ROOK, Player.WHITE, new Coordinates(6,5)));
+
+    g.move("e1-e2");
+
+    MoveTypes[][] ActualMS= g.board.getPiece(new Coordinates(4, 0)).moveSpace(g.board);
+
+    for (int y = 0; y < 8; y++){
+      for (int x = 0; x < 8; x++){
+        ExpctedMs[x][y]=MoveTypes.ILLE;
+      }
+    }
+    ExpctedMs[4][1]=MoveTypes.MOVE;
+    ExpctedMs[3][1]=MoveTypes.MOVE;
+    ExpctedMs[5][1]=MoveTypes.MOVE;
+    ExpctedMs[3][0]=MoveTypes.MOVE;
+    ExpctedMs[5][0]=MoveTypes.MOVE;
+
+
+    String[] s=grid2String(ExpctedMs, ActualMS);
+
+    Assertions.assertEquals(s[0],s[1]);
+
+  }
 
   @Test
   public void TestHorse() {

@@ -36,10 +36,44 @@ public class King extends ChessPiece{
       for (int x = 0; x < 8; x++) {
         if(ts[x][y]!=MoveTypes.ILLE){
           ms[x][y]=MoveTypes.ILLE;
+          if(x==location.getX() && y == location.getY()){
+            moved();
+          }
         }
       }
     }
+    if(getState()==0){
+      MoveTypes[][] ms2 = BaseSpace();
 
+      ms2=bishopHelper(b,ms2,-1,0,false);
+      ms2=bishopHelper(b,ms2,1,0,false);
+
+      for(int i = 0; i !=location.getX(); i++){
+        if(ts[i][location.getY()]!=MoveTypes.ILLE){
+          ms2[1][location.getY()] = MoveTypes.ILLE;
+          break;
+        }
+      }
+      for(int i = 7; i != location.getX(); i--){
+        if(ts[i][location.getY()]!=MoveTypes.ILLE){
+          ms2[6][location.getY()] = MoveTypes.ILLE;
+          break;
+        }
+      }
+      if(ms2[1
+              ][location.getY()] == MoveTypes.MOVE
+              && b.getPiece(new Coordinates(0, location.getY())).getPieceType()==PieceType.ROOK
+              && b.getPiece(new Coordinates(0, location.getY())).getState()==0
+              ){
+
+        ms[0][location.getY()]=MoveTypes.CAST;
+      } if(ms2[6][location.getY()] == MoveTypes.MOVE
+              && b.getPiece(new Coordinates(7, location.getY())).getPieceType()==PieceType.ROOK
+              && b.getPiece(new Coordinates(7, location.getY())).getState()==0
+              ){
+        ms[7][location.getY()]=MoveTypes.CAST;
+      }
+    }
 
 
 
@@ -48,6 +82,6 @@ public class King extends ChessPiece{
 
   @Override
   public void moved() {
-
+    if (getState()==0) state++;
   }
 }

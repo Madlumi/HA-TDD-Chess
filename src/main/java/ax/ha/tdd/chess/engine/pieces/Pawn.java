@@ -18,6 +18,8 @@ public class Pawn extends ChessPiece {
 
   @Override
   public MoveTypes[][] moveSpace(Chessboard chessboard) {
+    //should refactor to utizize the bishophelp function, but i'd have to refactor that to use int rather than bool, can't be bothered
+
     //specialized code for pawns since theyre the only direction bound piece
     int dir;
     if (player.getSymbol()=="B"){dir=1;}else{dir=-1;}
